@@ -2,7 +2,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import ReactDom from "react-dom";
 import {Router, Route, IndexRoute, hashHistory} from "react-router";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import $ from "jquery";
 
@@ -23,16 +23,16 @@ App = createReactClass({
         router: PropTypes.object.isRequired
     },
 
-    getInitialState: function(){
+    getInitialState(){
         try{
-            return {}
+            return {};
         }catch(error){
             console.error(error);
             console.error(error.stack);
         }
     },
 
-    componentWillMount: function(){
+    componentWillMount(){
         try{
 			var View;
             View = this;
@@ -45,7 +45,7 @@ App = createReactClass({
         }
     },
 
-    componentDidMount: function(){
+    componentDidMount(){
         try{
             var View, userId;
             View = this;
@@ -55,13 +55,13 @@ App = createReactClass({
         }
     },
 
-    componentWillUnmount: function(){
+    componentWillUnmount(){
         try{
             var View, i;
             View = this;
 
             for(i=0; i<View.ajaxRequests.length; i++){
-                View.ajaxRequests[i].abort();
+                View.ajaxRequests[parseInt(i)].abort();
             }
         }catch(error){
             console.error(error);
@@ -69,7 +69,7 @@ App = createReactClass({
         }
     },
 
-    render: function(){
+    render(){
         try {
             var app;
             app = this;
