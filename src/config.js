@@ -5,8 +5,8 @@ AppConfig.set({
     environment: "develop",
     develop: {
         namespace: "afriteach_develop",
-		frontend_url: "",
-		backend_url: "",
+		frontendUrl: "",
+		backendUrl: "",
         uploadUrl: "",
         uploadPath: ""
     }

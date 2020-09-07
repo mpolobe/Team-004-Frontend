@@ -13,68 +13,42 @@ SplashView = createReactClass({
 
     ajaxRequests: [],
 
-    getInitialState: function(){
-        try{
-            var View, state;
-            View = this;
-            
-			state={};
-			
-			return state;
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    getInitialState(){
+        var View, state;
+		View = this;
+		
+		state={};
+		
+		return state;
     },
 
-    componentWillMount: function(){
-        try{
-            var View;
-            View = this;
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    componentWillMount(){
+        var View;
+		View = this;
     },
 
-    componentDidMount: function(){
-        try{
-            var View;
-            View = this;
-			
-			View.props.router.push('/videos');
-			console.log("going to videos");
-		}catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    componentDidMount(){
+        var View;
+		View = this;
+		
+		View.props.router.push("/videos");
     },
 
-    componentWillUnmount: function(){
-        try{
-            var View, i;
-            View = this;
+    componentWillUnmount(){
+        var View, i;
+		View = this;
 
-            for(i=0; i<View.ajaxRequests.length; i++){
-                View.ajaxRequests[i].abort();
-            }
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+		for(i=0; i<View.ajaxRequests.length; i++){
+			View.ajaxRequests[parseInt(i)].abort();
+		}
     },
 
-    render: function(){
-        try {
-            return (
-                <div>
-					<h1>Splash Screen</h1>
-				</div>
-            );
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    render(){
+        return (
+			<div>
+				<h1>Splash Screen</h1>
+			</div>
+		);
     }
 });
 

@@ -13,97 +13,65 @@ LoginView = createReactClass({
 
     ajaxRequests: [],
 
-    getInitialState: function(){
-        try{
-            var View, cachedState, state;
-            View = this;
-            
-			cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_login_view_state"));
-                
-			state = {
-				feedback: {
-					open: false,
-					message: "Hello"
-				}
-			};
+    getInitialState(){
+        var View, cachedState, state;
+		View = this;
+		
+		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_login_view_state"));
+			
+		state = {
+			feedback: {
+				open: false,
+				message: "Hello"
+			}
+		};
 
-            return state;
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+		return state;
     },
 
-    componentWillMount: function(){
-        try{
-            var View;
-            View = this;
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    componentWillMount(){
+        var View;
+		View = this;
     },
 
-    componentDidMount: function(){
-        try{
-            var View = this;
-            var userId;
+    componentDidMount(){
+        var View = this;
+		var userId;
 
-            userId = localStorage.getItem(AppEnv.namespace+"_user_id");
-            if(userId !== null){
-                console.log("User connected");
-                View.props.router.push('/videos');
-            }
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+		userId = localStorage.getItem(AppEnv.namespace+"_user_id");
+		if(userId !== null){
+			View.props.router.push("/videos");
+		}
     },
 
-    componentWillUnmount: function(){
-        try{
-            var View, i;
-            View = this;
+    componentWillUnmount(){
+        var View, i;
+		View = this;
 
-            for(i=0; i<View.ajaxRequests.length; i++){
-                View.ajaxRequests[i].abort();
-            }
+		for(i=0; i<View.ajaxRequests.length; i++){
+			View.ajaxRequests[parseInt(i)].abort();
+		}
 
-            window.sessionStorage.setItem(AppEnv.namespace+"_login_view_state", JSON.stringify(View.state));
-            console.log("Writting state into cache.");
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+		window.sessionStorage.setItem(AppEnv.namespace+"_login_view_state", JSON.stringify(View.state));
     },
 
-    handleFeedbackClose: function(){
-        try{
-            this.setState({
-                feedback: {
-                    open: false,
-                    message: null
-                }
-            });
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+    handleFeedbackClose(){
+        this.setState({
+			feedback: {
+				open: false,
+				message: null
+			}
+		});
     },
 
-    render: function(){
-        try {
-            return (
-                <Grid container className="c-login-view">
-					<Grid item xs={12}>
-						<h1>Splash Screen</h1>
-					</Grid>
+    render(){
+        return (
+			<Grid container className="c-login-view">
+				<Grid item xs={12}>
+					<h1>Splash Screen</h1>
 				</Grid>
-            );
-        }catch(error){
-            console.error(error);
-            console.error(error.stack);
-        }
+			</Grid>
+		);
     }
 });
 

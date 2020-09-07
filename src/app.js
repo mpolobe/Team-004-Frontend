@@ -24,66 +24,38 @@ App = createReactClass({
     },
 
     getInitialState(){
-        try{
-            var state;
-			
-			state = {};
-        }catch(error){
-            // console.error(error);
-            // console.error(error.stack);
-        }
-		finally{
-			return state;
-		}
+        var state;
+		
+		return state = {};
     },
 
     componentWillMount(){
-        try{
-			var View;
-            View = this;
-            
-			View.context.router.push("/splash");
-        }catch(error){
-            // console.error(error);
-            // console.error(error.stack);
-        }
+        var View;
+		View = this;
+		
+		View.context.router.push("/splash");
     },
 
     componentDidMount(){
-        try{
-            var View, userId;
-            View = this;
-        }catch(error){
-            // console.error(error);
-            // console.error(error.stack);
-        }
+        var View, userId;
+		View = this;
     },
 
     componentWillUnmount(){
-        try{
-            var View, i;
-            View = this;
+        var View, i;
+		View = this;
 
-            for(i=0; i<View.ajaxRequests.length; i++){
-                View.ajaxRequests[parseInt(i)].abort();
-            }
-        }catch(error){
-            // console.error(error);
-            // console.error(error.stack);
-        }
+		for(i=0; i<View.ajaxRequests.length; i++){
+			View.ajaxRequests[parseInt(i)].abort();
+		}
     },
 
     render(){
-        try {
-            var app;
-            app = this;
-            return React.cloneElement(this.props.children, {
-                app
-            });
-        }catch(error){
-            // console.error(error);
-            // console.error(error.stack);
-        }
+        var app;
+		app = this;
+		return React.cloneElement(this.props.children, {
+			app
+		});
     }
 });
 
