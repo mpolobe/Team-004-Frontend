@@ -25,11 +25,16 @@ App = createReactClass({
 
     getInitialState(){
         try{
-            return {};
+            var state;
+			
+			state = {};
         }catch(error){
-            console.error(error);
-            console.error(error.stack);
+            // console.error(error);
+            // console.error(error.stack);
         }
+		finally{
+			return state;
+		}
     },
 
     componentWillMount(){
@@ -38,10 +43,9 @@ App = createReactClass({
             View = this;
             
 			View.context.router.push("/splash");
-			console.log("going to splash");
         }catch(error){
-            console.error(error);
-            console.error(error.stack);
+            // console.error(error);
+            // console.error(error.stack);
         }
     },
 
@@ -50,8 +54,8 @@ App = createReactClass({
             var View, userId;
             View = this;
         }catch(error){
-            console.error(error);
-            console.error(error.stack);
+            // console.error(error);
+            // console.error(error.stack);
         }
     },
 
@@ -64,8 +68,8 @@ App = createReactClass({
                 View.ajaxRequests[parseInt(i)].abort();
             }
         }catch(error){
-            console.error(error);
-            console.error(error.stack);
+            // console.error(error);
+            // console.error(error.stack);
         }
     },
 
@@ -74,11 +78,11 @@ App = createReactClass({
             var app;
             app = this;
             return React.cloneElement(this.props.children, {
-                app: app
+                app
             });
         }catch(error){
-            console.error(error);
-            console.error(error.stack);
+            // console.error(error);
+            // console.error(error.stack);
         }
     }
 });
