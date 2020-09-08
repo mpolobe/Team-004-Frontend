@@ -1,0 +1,73 @@
+import React from "react";
+import createReactClass from "create-react-class";
+import ReactDom from "react-dom";
+import {Router, Route, IndexRoute, hashHistory} from "react-router";
+import PropTypes from "prop-types";
+
+import $ from "jquery";
+
+import AppConfig from "./config";
+
+import SplashView from "./views/Splash";
+import LoginView from "./views/Login";
+import VideosView from "./views/Videos";
+
+var App, AppEnv;
+
+AppEnv = AppConfig.get(AppConfig.get("environment"));
+
+App = createReactClass({
+    ajaxRequests: [],
+
+    contextTypes: {
+        router: PropTypes.object.isRequired
+    },
+
+    getInitialState(){
+        var state;
+		
+		return state = {};
+    },
+
+    componentWillMount(){
+        var View;
+		View = this;
+		
+		View.context.router.push("/splash");
+    },
+
+    componentDidMount(){
+        var View, userId;
+		View = this;
+    },
+
+    componentWillUnmount(){
+        var View, i;
+		View = this;
+
+		for(i=0; i<View.ajaxRequests.length; i++){
+			View.ajaxRequests[parseInt(i)].abort();
+		}
+    },
+
+    render(){
+        var app;
+		app = this;
+		return React.cloneElement(this.props.children, {
+			app
+		});
+    }
+});
+
+ReactDom.render(
+    (
+        <Router history={hashHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={SplashView}/>
+                <Route path="splash" component={SplashView}/>
+                <Route path="login" component={LoginView}/>
+                <Route path="videos" component={VideosView}/>
+            </Route>
+        </Router>
+    ), document.getElementById("app")
+);
