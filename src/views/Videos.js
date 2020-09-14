@@ -59,7 +59,7 @@ ListElement = createReactClass({
 
     render() {
 		return (
-		    <ListItem onClick={(e) => this.viewVideo(e, this.props.video)}>
+			<ListItem onClick={(e) => this.viewVideo(e, this.props.video)}>
 				<Card style={{width:"100%"}}>
 					<CardMedia
 						image={this.props.video.thumbnail}
