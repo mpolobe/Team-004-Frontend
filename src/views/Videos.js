@@ -50,11 +50,6 @@ ListElement = createReactClass({
 	},
 
     viewVideo(e, video){
-        if(e !== undefined && e !== null){
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
         var view;
 
         view = this;
@@ -63,7 +58,8 @@ ListElement = createReactClass({
 	},
 
     render() {
-		return <ListItem onClick={(e) => this.viewVideo(e, this.props.video)}>
+		return (
+		    <ListItem onClick={(e) => this.viewVideo(e, this.props.video)}>
 				<Card style={{width:"100%"}}>
 					<CardMedia
 						image={this.props.video.thumbnail}
@@ -77,6 +73,7 @@ ListElement = createReactClass({
 					</CardContent>
 				</Card>
 			</ListItem>
+        );
 	}
 });
 
@@ -95,7 +92,7 @@ VideosView = createReactClass({
             list: {
                 isLoading: false,
                 infiniteLoadBeginEdgeOffset: 200,
-                nextUrl: undefined,
+                nextUrl: null,
                 items: [],
                 elements: [],
             },
@@ -138,11 +135,6 @@ VideosView = createReactClass({
     },
 
     loadVideos(e){
-        if(e !== undefined && e !== null){
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
         var View, listState;
 
         View = this;
@@ -201,7 +193,7 @@ VideosView = createReactClass({
             listState.items.concat(items);
 
             for (i = 0; i < items.length; i++) {
-                listState.elements.push(<ListElement key={items[i].id} video={items[i]} parentView={View}/>);
+                listState.elements.push(<ListElement key={items[parseInt(i)].id} video={items[parseInt(i)]} parentView={View}/>);
             }
 
             View.setState({
@@ -219,7 +211,7 @@ VideosView = createReactClass({
                             <Grid item xs={7}>
                                 <Typography variant="h6">AfriTeach</Typography>
                             </Grid>
-                            <Grid item xs={5} style={{ position: "relative", backgroundColor: "rgba(255, 255, 255, 0.15)", borderRadius: "5px" }}>
+                            <Grid item xs={5} style={{ position: "relative", backgroundColor: "rgba(255, 255, 255, 0.15)" }}>
                                 <div style={{ height: "100%", position: "absolute", pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center",
                                 }}>
                                     <SearchIcon />
