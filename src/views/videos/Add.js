@@ -32,7 +32,7 @@ AddVideoView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_add_video_view_state"));
 			
 		state = {
-		    isTeacher: true, //should check role of signed in user
+            isTeacher: true, //should check role of signed in user
             url: "",
             thumbnailUrl: "",
             title: {
@@ -72,7 +72,7 @@ AddVideoView = createReactClass({
                 hasChanged: false
             },
             postButton: {
-		        isActive: false
+				isActive: false
             },
             feedback: {
 				open: false,
@@ -98,10 +98,10 @@ AddVideoView = createReactClass({
         };
 
         dropZoneEventHandlers = {
-            init: function(dropzone){
+            init(dropzone){
                 dropZone = dropzone;
             },
-            error: function(file, error, xhr){
+            error(file, error, xhr){
                 dropZone.removeFile(file);
                 View.setState({
                     feedback: {
@@ -110,7 +110,7 @@ AddVideoView = createReactClass({
                     }
                 });
             },
-            success: function(file, data){
+            success(file, data){
                 /*fileUrl = AppEnv.uploadPath + "/" + data.uploads.file;
                 if(dropZone.files.length == 1){
                     View.setState({
@@ -121,8 +121,8 @@ AddVideoView = createReactClass({
                     dropZone.disable();
                 }*/
             },
-            removedfile: function(file){
-                if(dropZone.files.length == 0){
+            removedfile(file){
+                if(dropZone.files.length === 0){
                     dropZone.enable();
                 }
             }
@@ -189,10 +189,10 @@ AddVideoView = createReactClass({
                 state.title.hasChanged = true;
                 if(value.length === 0){
                     state.title.hasError = true;
-                    state.title.errorHelperText = "Value is required."
+                    state.title.errorHelperText = "Value is required.";
                 }else{
                     state.title.hasError = false;
-                    state.title.errorHelperText = ""
+                    state.title.errorHelperText = "";
                 }
                 break;
             }
@@ -201,10 +201,10 @@ AddVideoView = createReactClass({
                 state.description.hasChanged = true;
                 if(value.length === 0){
                     state.description.hasError = true;
-                    state.description.errorHelperText = "Value is required."
+                    state.description.errorHelperText = "Value is required.";
                 }else{
                     state.description.hasError = false;
-                    state.description.errorHelperText = ""
+                    state.description.errorHelperText = "";
                 }
                 break;
             }
@@ -213,10 +213,10 @@ AddVideoView = createReactClass({
                 state.subject.hasChanged = true;
                 if(value.length === 0){
                     state.subject.hasError = true;
-                    state.subject.errorHelperText = "Value is required."
+                    state.subject.errorHelperText = "Value is required.";
                 }else{
                     state.subject.hasError = false;
-                    state.subject.errorHelperText = ""
+                    state.subject.errorHelperText = "";
                 }
                 break;
             }
@@ -225,10 +225,10 @@ AddVideoView = createReactClass({
                 state.level.hasChanged = true;
                 if(value.length === 0){
                     state.level.hasError = true;
-                    state.level.errorHelperText = "Value is required."
+                    state.level.errorHelperText = "Value is required.";
                 }else{
                     state.level.hasError = false;
-                    state.level.errorHelperText = ""
+                    state.level.errorHelperText = "";
                 }
                 break;
             }
@@ -237,10 +237,10 @@ AddVideoView = createReactClass({
                 state.language.hasChanged = true;
                 if(value.length === 0){
                     state.language.hasError = true;
-                    state.language.errorHelperText = "Value is required."
+                    state.language.errorHelperText = "Value is required.";
                 }else{
                     state.language.hasError = false;
-                    state.language.errorHelperText = ""
+                    state.language.errorHelperText = "";
                 }
                 break;
             }
@@ -249,10 +249,10 @@ AddVideoView = createReactClass({
                 state.country.hasChanged = true;
                 if(value.length === 0){
                     state.country.hasError = true;
-                    state.country.errorHelperText = "Value is required."
+                    state.country.errorHelperText = "Value is required.";
                 }else{
                     state.country.hasError = false;
-                    state.country.errorHelperText = ""
+                    state.country.errorHelperText = "";
                 }
                 break;
             }

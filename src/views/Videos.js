@@ -90,7 +90,7 @@ VideosView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_videos_view_state"));
 			
 		state = {
-		    isTeacher: true, //should check role of signed in user
+            isTeacher: true, //should check role of signed in user
             list: {
                 isLoading: false,
                 infiniteLoadBeginEdgeOffset: 200,
