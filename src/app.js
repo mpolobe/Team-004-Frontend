@@ -11,6 +11,7 @@ import AppConfig from "./config";
 import SplashView from "./views/Splash";
 import LoginView from "./views/Login";
 import VideosView from "./views/Videos";
+import AddVideoView from "./views/videos/Add";
 
 var App, AppEnv;
 
@@ -67,6 +68,7 @@ ReactDom.render(
                 <Route path="splash" component={SplashView}/>
                 <Route path="login" component={LoginView}/>
                 <Route path="videos" component={VideosView}/>
+                <Route path="add-video" component={AddVideoView}/>
             </Route>
         </Router>
     ), document.getElementById("app")
