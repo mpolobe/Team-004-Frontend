@@ -43,7 +43,7 @@ ListElement = createReactClass({
 		view = this;
 		insights = [];
 		insights.push(video.views + " views");
-		insights.push(video.comments + " comments");
+		//insights.push(video.comments + " comments");
 		insights.push(video.downloads + " downloads");
 		insights.push(moment(video.createDate).fromNow());
 
@@ -55,7 +55,8 @@ ListElement = createReactClass({
 
         view = this;
 
-        view.props.parentView.props.router.push("#/videos/"+video.id);
+        window.sessionStorage.setItem(AppEnv.namespace+"_player_video", JSON.stringify(video));
+        view.props.parentView.props.router.push("/videos/"+video.id);
 	},
 
     render() {
@@ -69,7 +70,7 @@ ListElement = createReactClass({
 					/>
 					<CardContent>
 						<Typography component="h2">{this.props.video.title}</Typography>
-						<Typography component="h2" variant="subtitle2">{this.props.video.teacher.name}</Typography>
+						<Typography component="h2" variant="subtitle2">By {this.props.video.teacher.name}</Typography>
 						<Typography  component="p" variant="body2" color="textSecondary">{this.getInsights(this.props.video)}</Typography>
 					</CardContent>
 				</Card>
@@ -164,7 +165,7 @@ VideosView = createReactClass({
                     createDate: "2019-03-14",
                     views: 235,
                     downloads: 30,
-                    comments: 10,
+                    //comments: 10,
                     teacher: {
                         name: "Bambanani"
                     },
@@ -182,7 +183,7 @@ VideosView = createReactClass({
                     createDate: "2019-03-14",
                     views: 235,
                     downloads: 30,
-                    comments: 10,
+                    //comments: 10,
                     teacher: {
                         name: "Bambanani"
                     },
