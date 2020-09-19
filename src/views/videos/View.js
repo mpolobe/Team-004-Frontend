@@ -34,7 +34,7 @@ ViewVideoView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_view_video_view_state"));
 			
 		state = {
-		    video: JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_player_video")),
+            video: JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_player_video")),
             feedback: {
 				open: false,
 				message: ""
