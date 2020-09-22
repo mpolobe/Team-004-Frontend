@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,8 +13,8 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import MenuIcon from "@material-ui/icons/Menu";
-import IconButton from "@material-ui/core/IconButton";
+import Fab from "@material-ui/core/Fab";
+import Snackbar from "@material-ui/core/Snackbar";
 import Infinite from "react-infinite";
 
 import $ from "jquery";
@@ -89,6 +90,7 @@ VideosView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_videos_view_state"));
 			
 		state = {
+            isTeacher: true, //should check role of signed in user
             list: {
                 isLoading: false,
                 infiniteLoadBeginEdgeOffset: 200,
@@ -98,7 +100,7 @@ VideosView = createReactClass({
             },
             feedback: {
 				open: false,
-				message: "Hello"
+				message: ""
 			}
 		};
 
@@ -122,6 +124,7 @@ VideosView = createReactClass({
 			View.ajaxRequests[parseInt(i)].abort();
 		}
 
+        View.state.list.elements = [];
 		window.sessionStorage.setItem(AppEnv.namespace+"_videos_view_state", JSON.stringify(View.state));
     },
 
@@ -202,26 +205,30 @@ VideosView = createReactClass({
         }, 3000);
     },
 
+    addVideo(e){
+        var View;
+
+        View = this;
+
+        View.props.router.push("/add-video");
+    },
+
     render(){
         return (
-			<Grid container className="c-videos-view">
+            <Grid container className="c-videos-view">
                 <AppBar position="static">
                     <Toolbar>
-                        <Grid container>
-                            <Grid item xs={7}>
-                                <Typography variant="h6">AfriTeach</Typography>
-                            </Grid>
-                            <Grid item xs={5} style={{ position: "relative", backgroundColor: "rgba(255, 255, 255, 0.15)" }}>
-                                <div style={{ height: "100%", position: "absolute", pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center",
-                                }}>
-                                    <SearchIcon />
-                                </div>
-                                <InputBase
-                                    style={{ width: "100%", color: "inherit", paddingLeft: "32px" }}
-                                    placeholder="Search..."
-                                />
-                            </Grid>
-                        </Grid>
+                        <Typography variant="h6" style={{ flexGrow: 1 }}>AfriTeach</Typography>
+                        <div style={{ position: "relative", backgroundColor: "rgba(255, 255, 255, 0.15)" }}>
+                            <div style={{ height: "100%", position: "absolute", pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center",
+                            }}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                style={{ width: "100%", color: "inherit", paddingLeft: "32px" }}
+                                placeholder="Search..."
+                            />
+                        </div>
                     </Toolbar>
                 </AppBar>
 				<Grid item xs={12}>
@@ -241,8 +248,19 @@ VideosView = createReactClass({
                             {this.state.list.elements}
                         </Infinite>
                     </List>
+                    {this.state.isTeacher &&
+                        <Fab size="medium" color="secondary" onClick={(e) => this.addVideo(e)} style={{ position: "fixed", bottom: 0, right: 0, margin: "16px"}}>
+                            <AddIcon />
+                        </Fab>
+                    }
 				</Grid>
-			</Grid>
+                <Snackbar
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    open={this.state.feedback.open}
+                    message={this.state.feedback.message}
+                    autoHideDuration={3000}
+                    onClose={this.handleFeedbackClose} />
+            </Grid>
 		);
     }
 });

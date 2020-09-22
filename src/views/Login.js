@@ -1,5 +1,7 @@
 import React from "react";
 import createReactClass from "create-react-class";
+import Grid from "@material-ui/core/Grid";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import $ from "jquery";
 
@@ -22,7 +24,7 @@ LoginView = createReactClass({
 		state = {
 			feedback: {
 				open: false,
-				message: "Hello"
+				message: ""
 			}
 		};
 
@@ -70,6 +72,12 @@ LoginView = createReactClass({
 				<Grid item xs={12}>
 					<h1>Splash Screen</h1>
 				</Grid>
+				<Snackbar
+					anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+					open={this.state.feedback.open}
+					message={this.state.feedback.message}
+					autoHideDuration={3000}
+					onClose={this.handleFeedbackClose} />
 			</Grid>
 		);
     }
