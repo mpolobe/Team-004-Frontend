@@ -12,6 +12,7 @@ import SplashView from "./views/Splash";
 import LoginView from "./views/Login";
 import VideosView from "./views/Videos";
 import AddVideoView from "./views/videos/Add";
+import ViewVideoView from "./views/videos/View";
 
 var App, AppEnv;
 
@@ -69,6 +70,7 @@ ReactDom.render(
                 <Route path="login" component={LoginView}/>
                 <Route path="videos" component={VideosView}/>
                 <Route path="add-video" component={AddVideoView}/>
+                <Route path="/videos/:videoId" component={ViewVideoView}/>
             </Route>
         </Router>
     ), document.getElementById("app")
