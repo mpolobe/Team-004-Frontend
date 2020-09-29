@@ -35,7 +35,7 @@ App = createReactClass({
         var View;
 		View = this;
 		
-		View.context.router.push("/splash");
+		View.context.router.push("/videos");
     },
 
     componentDidMount(){

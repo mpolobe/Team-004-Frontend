@@ -5,6 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -21,6 +23,9 @@ import $ from "jquery";
 import moment from "moment";
 
 import AppConfig from "../config";
+import ArrowBackIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 
 var VideosView, AppEnv, ListElement;
 AppEnv = AppConfig.get(AppConfig.get("environment"));
@@ -91,7 +96,8 @@ VideosView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_videos_view_state"));
 			
 		state = {
-            isTeacher: true, //should check role of signed in user
+		    isConnected: window.localStorage.getItem(AppEnv.namespace+"_user_id") !== null,
+		    isTeacher: window.localStorage.getItem(AppEnv.namespace+"_user_role") === "teacher",
             list: {
                 isLoading: false,
                 infiniteLoadBeginEdgeOffset: 200,
@@ -214,6 +220,18 @@ VideosView = createReactClass({
         View.props.router.push("/add-video");
     },
 
+    logout(e){
+        var View;
+
+        View = this;
+
+        window.localStorage.removeItem(AppEnv.namespace+"_user_id");
+        window.localStorage.removeItem(AppEnv.namespace+"_user_token");
+        window.localStorage.removeItem(AppEnv.namespace+"_user_role");
+
+        View.props.router.push("/");
+    },
+
     render(){
         return (
             <Grid container className="c-videos-view">
@@ -230,6 +248,12 @@ VideosView = createReactClass({
                                 placeholder="Search..."
                             />
                         </div>
+                        {!this.state.isConnected &&
+                            <Button color="inherit" href="#/login">Login</Button>
+                        }
+                        {this.state.isConnected &&
+                            <Button color="inherit" onClick={(e) => this.logout(e)}>Logout</Button>
+                        }
                     </Toolbar>
                 </AppBar>
 				<Grid item xs={12}>
