@@ -364,11 +364,11 @@ LoginView = createReactClass({
 				}),
 				contentType: "application/json",
 				dataType: "json",
-				error: function(xhr, status, error){
+				error(xhr, status, error){
                     var response;
-                    if(xhr.responseText !== undefined) {
+                    if('responseText' in xhr) {
                         response = JSON.parse(xhr.responseText);
-                    }else if(xhr.statusText !== undefined){
+                    }else if('statusText' in xhr){
                         response = xhr.statusText;
                     }else{
                         response = error;
@@ -383,7 +383,7 @@ LoginView = createReactClass({
 				headers: {
 				},
 				method: "POST",
-				success: function(data, status, xhr){
+				success(data, status, xhr){
 				    var state;
 
 				    state = View.state;
@@ -419,11 +419,11 @@ LoginView = createReactClass({
 				}),
 				contentType: "application/json",
 				dataType: "json",
-				error: function(xhr, status, error){
-				    var response;
-				    if(xhr.responseText !== undefined) {
-                        response = JSON.parse(xhr.responseText);
-                    }else if(xhr.statusText !== undefined){
+				error(xhr, status, error){
+                    var response;
+				    if('responseText' in xhr) {
+                        response = JSON.parse(xhr);
+                    }else if('statusText' in xhr){
 				        response = xhr.statusText;
                     }else{
                         response = error;
@@ -438,7 +438,7 @@ LoginView = createReactClass({
 				headers: {
 				},
 				method: "POST",
-				success: function(data, status, xhr){
+				success(data, status, xhr){
 					window.localStorage.setItem(AppEnv.namespace+"_user_id", data.id);
                     window.localStorage.setItem(AppEnv.namespace+"_user_token", data.token);
                     window.localStorage.setItem(AppEnv.namespace+"_user_role", data.role);

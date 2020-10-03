@@ -375,11 +375,11 @@ AddVideoView = createReactClass({
                 }),
                 contentType: "application/json",
                 dataType: "json",
-                error: function(xhr, status, error){
+                error(xhr, status, error){
                     var response;
-                    if(xhr.responseText !== undefined) {
+                    if('responseText' in xhr) {
                         response = JSON.parse(xhr.responseText);
-                    }else if(xhr.statusText !== undefined){
+                    }else if('statusText' in xhr){
                         response = xhr.statusText;
                     }else{
                         response = error;
@@ -394,8 +394,7 @@ AddVideoView = createReactClass({
                 headers: {
                 },
                 method: "POST",
-                success: function(data, status, xhr){
-                    console.log(data);
+                success(data, status, xhr){
                     View.props.router.push("/videos/" + data._id);
                 }
             });
