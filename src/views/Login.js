@@ -424,7 +424,7 @@ LoginView = createReactClass({
                     if("responseText" in xhr) {
                         response = JSON.parse(xhr);
                     }else if("statusText" in xhr){
-				        response = xhr.statusText;
+                        response = xhr.statusText;
                     }else{
                         response = error;
                     }
