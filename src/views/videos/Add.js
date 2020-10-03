@@ -32,9 +32,14 @@ AddVideoView = createReactClass({
 		cachedState = JSON.parse(window.sessionStorage.getItem(AppEnv.namespace+"_add_video_view_state"));
 			
 		state = {
-            isTeacher: true, //should check role of signed in user
-            url: "",
-            thumbnailUrl: "",
+            isTeacher: window.localStorage.getItem(AppEnv.namespace+"_user_role") === "teacher",
+            url: {
+                value: "",
+                thumbnailUrl: "",
+                hasError: false,
+                errorHelperText: "",
+                hasChanged: false
+            },
             title: {
                 value: "",
                 hasError: false,
@@ -92,13 +97,15 @@ AddVideoView = createReactClass({
         }
 
         dropZoneConfig = {
+            paramName: "video",
             iconFiletypes: [".mp4"],
             showFiletypeIcon: false,
-            postUrl: AppEnv.uploadUrl + "?x-access-token=" + window.localStorage.getItem(AppEnv.namespace + "_access_token")
+            postUrl: AppEnv.backendUrl + "/courses/upload" + "?token=" + window.localStorage.getItem(AppEnv.namespace+"_user_token")
         };
 
         dropZoneEventHandlers = {
             init(dropzone){
+                dropzone.options.paramName = "video";
                 dropZone = dropzone;
             },
             error(file, error, xhr){
@@ -111,15 +118,22 @@ AddVideoView = createReactClass({
                 });
             },
             success(file, data){
-                /*fileUrl = AppEnv.uploadPath + "/" + data.uploads.file;
-                if(dropZone.files.length == 1){
-                    View.setState({
-                        adImageUrl: adImageUrl
-                    }, function(){
-                        View.validate();
-                    });
-                    dropZone.disable();
-                }*/
+                View.setState({
+                    url: {
+                        value: data.videoUrl,
+                        thumbnailUrl: data.thumbnailUrl,
+                        hasError: false,
+                        errorHelperText: "",
+                        hasChanged: true
+                    },
+                    feedback: {
+                        open: true,
+                        message: "File uploaded."
+                    }
+                }, function(){
+                    View.validate();
+                });
+                dropZone.disable();
             },
             removedfile(file){
                 if(dropZone.files.length === 0){
@@ -270,6 +284,13 @@ AddVideoView = createReactClass({
         state = View.state;
         isValid = true;
 
+        if(state.url.value.length === 0 || state.url.thumbnailUrl.length === 0){
+            if(state.url.hasChanged) {
+                state.url.hasError = true;
+                state.url.errorHelperText = "Upload is required.";
+            }
+            isValid = false;
+        }
         if(state.title.value.length === 0){
             if(state.title.hasChanged) {
                 state.title.hasError = true;
@@ -327,13 +348,59 @@ AddVideoView = createReactClass({
     },
 
     post(e){
-        var View;
+        var View, request;
 
         View = this;
 
         if(View.state.postButton.isActive){
-            //post and direct to video view screen
-            View.props.router.push("/videos");
+            View.setState({
+                feedback: {
+                    open: true,
+                    message: "Processing..."
+                }
+            });
+
+            request = $.ajax({
+                url: AppEnv.backendUrl + "/courses" + "?token=" + window.localStorage.getItem(AppEnv.namespace+"_user_token"),
+                cache: false,
+                data: JSON.stringify({
+                    title: View.state.title.value,
+                    subject: View.state.subject.value,
+                    level: View.state.level.value,
+                    country: View.state.country.value,
+                    description: View.state.description.value,
+                    language: View.state.language.value,
+                    thumbnailUrl: View.state.url.thumbnailUrl,
+                    videoUrl: View.state.url.value
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                error: function(xhr, status, error){
+                    var response;
+                    if(xhr.responseText !== undefined) {
+                        response = JSON.parse(xhr.responseText);
+                    }else if(xhr.statusText !== undefined){
+                        response = xhr.statusText;
+                    }else{
+                        response = error;
+                    }
+                    View.setState({
+                        feedback: {
+                            open: true,
+                            message: response.message
+                        }
+                    });
+                },
+                headers: {
+                },
+                method: "POST",
+                success: function(data, status, xhr){
+                    console.log(data);
+                    View.props.router.push("/videos/" + data._id);
+                }
+            });
+
+            View.ajaxRequests.push(request);
         }
     },
 

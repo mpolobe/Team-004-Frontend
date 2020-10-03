@@ -365,7 +365,14 @@ LoginView = createReactClass({
 				contentType: "application/json",
 				dataType: "json",
 				error: function(xhr, status, error){
-				    var response = JSON.parse(xhr.responseText);
+                    var response;
+                    if(xhr.responseText !== undefined) {
+                        response = JSON.parse(xhr.responseText);
+                    }else if(xhr.statusText !== undefined){
+                        response = xhr.statusText;
+                    }else{
+                        response = error;
+                    }
                     View.setState({
                         feedback: {
                             open: true,
@@ -413,7 +420,14 @@ LoginView = createReactClass({
 				contentType: "application/json",
 				dataType: "json",
 				error: function(xhr, status, error){
-                    var response = JSON.parse(xhr.responseText);
+				    var response;
+				    if(xhr.responseText !== undefined) {
+                        response = JSON.parse(xhr.responseText);
+                    }else if(xhr.statusText !== undefined){
+				        response = xhr.statusText;
+                    }else{
+                        response = error;
+                    }
                     View.setState({
                         feedback: {
                             open: true,
