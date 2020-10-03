@@ -366,9 +366,9 @@ LoginView = createReactClass({
 				dataType: "json",
 				error(xhr, status, error){
                     var response;
-                    if('responseText' in xhr) {
+                    if("responseText" in xhr) {
                         response = JSON.parse(xhr.responseText);
-                    }else if('statusText' in xhr){
+                    }else if("statusText" in xhr){
                         response = xhr.statusText;
                     }else{
                         response = error;
@@ -419,11 +419,11 @@ LoginView = createReactClass({
 				}),
 				contentType: "application/json",
 				dataType: "json",
-				error(xhr, status, error){
+                error(xhr, status, error){
                     var response;
-				    if('responseText' in xhr) {
+                    if("responseText" in xhr) {
                         response = JSON.parse(xhr);
-                    }else if('statusText' in xhr){
+                    }else if("statusText" in xhr){
 				        response = xhr.statusText;
                     }else{
                         response = error;
