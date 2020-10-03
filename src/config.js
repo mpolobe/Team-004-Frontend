@@ -6,9 +6,7 @@ AppConfig.set({
     develop: {
         namespace: "afriteach_develop",
 		frontendUrl: "",
-		backendUrl: "https://africateach.herokuapp.com",
-        uploadUrl: "",
-        uploadPath: ""
+		backendUrl: "https://africateach.herokuapp.com"
     }
 });
 
